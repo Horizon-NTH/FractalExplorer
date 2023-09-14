@@ -1,0 +1,3 @@
+[submodule "deps/HorizonGUI"]
+	path = deps/HorizonGUI
+	url = https://github.com/Horizon-NTH/HorizonGUI.git
