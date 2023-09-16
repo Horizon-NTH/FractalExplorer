@@ -4,12 +4,12 @@ int main()
 {
 	hgui::init();
 	auto& monitor = hgui::MonitorManager::get_primary_monitor();
-	hgui::WindowManager::create("FractalExplorer", monitor->get_size(), glm::vec2(0), nullptr, { hgui::WindowOption(hgui::options::MAXIMAIZED, true) });
-	auto& shader = hgui::ResourceManager::load_shader("fractal", hgui::file_reader("VertexShaderFractal.glsl"), hgui::file_reader("FragmentShaderFractal.glsl"));
+	auto window = hgui::WindowManager::create("FractalExplorer", monitor->get_size(), glm::vec2(0), nullptr, nullptr, { hgui::WindowOption(hgui::options::MAXIMAIZED, true) });
+	auto shader = hgui::ShaderManager::create(hgui::file_reader("assets/shaders/VertexShaderFractal.glsl"), hgui::file_reader("assets/shaders/FragmentShaderFractal.glsl"));
 	shader->set_vec2("canvaSize", monitor->get_size());
-	hgui::CanvaManager::create("fractal", shader, monitor->get_size(), glm::vec2(0));
+	auto canva = hgui::CanvaManager::create(shader, monitor->get_size(), hgui::point(0));
 #ifndef EXTENDED
-	glm::vec2 center = glm::vec2(0.75, -1.25);
+	glm::vec2 center = glm::vec2(0);
 	shader->set_vec2("center", center);
 	float offset = 2.0f;
 	shader->set_float("offset", offset);
@@ -17,13 +17,14 @@ int main()
 #ifdef EXTENDED
 	glm::dvec2 center = glm::dvec2(0);
 	shader->set_dvec2("center", center);
+	shader->set_dvec2("center", center);
 	double offset = 2.0f;
 	shader->set_double("offset", offset);
 #endif // EXTENDED
 	static std::shared_ptr<glm::vec2> lastMousePosition = nullptr;
-	hgui::Widget::bind(hgui::CanvaManager::get("fractal"), hgui::MouseCombinationAction(hgui::inputs::OVER, hgui::buttons::LEFT, hgui::actions::PRESS), [&]()
+	canva->bind(hgui::MouseCombinationAction(hgui::inputs::OVER, hgui::buttons::LEFT, hgui::actions::PRESS), [&]()
 		{
-			hgui::Widget::bind(hgui::CanvaManager::get("fractal"), hgui::MouseAction(hgui::buttons::LEFT, hgui::actions::REPEAT), [&]()
+			canva->bind(hgui::MouseAction(hgui::buttons::LEFT, hgui::actions::REPEAT), [&]()
 				{
 					if (!lastMousePosition)
 					{
@@ -42,7 +43,6 @@ int main()
 					{
 						newCenter.y = center.y;
 					}
-					std::cout << hgui::point(center) << " --> " << hgui::point(newCenter) << std::endl;
 					center = newCenter;
 #ifndef EXTENDED
 					shader->set_vec2("center", center);
@@ -52,12 +52,12 @@ int main()
 #endif // EXTENDED
 				});
 		});
-	hgui::Widget::bind(hgui::CanvaManager::get("fractal"), hgui::MouseCombinationAction(hgui::inputs::OVER, hgui::buttons::LEFT, hgui::actions::RELEASE), [&]()
+	canva->bind(hgui::MouseCombinationAction(hgui::inputs::OVER, hgui::buttons::LEFT, hgui::actions::RELEASE), [&]()
 		{
 			lastMousePosition = nullptr;
-			hgui::Widget::unbind(hgui::CanvaManager::get("fractal"), hgui::MouseAction(hgui::buttons::LEFT, hgui::actions::REPEAT));
+			canva->unbind(hgui::MouseAction(hgui::buttons::LEFT, hgui::actions::REPEAT));
 		});
-	hgui::Widget::bind(hgui::CanvaManager::get("fractal"), hgui::inputs::SCROLL_DOWN, [&]()
+	canva->bind(hgui::inputs::SCROLL_DOWN, [&]()
 		{
 			offset *= 1.05f;
 
@@ -70,7 +70,7 @@ int main()
 			shader->set_double("offset", offset);
 #endif // EXTENDED
 		});
-	hgui::Widget::bind(hgui::CanvaManager::get("fractal"), hgui::inputs::SCROLL_UP, [&]()
+	canva->bind(hgui::inputs::SCROLL_UP, [&]()
 		{
 			offset *= 0.95f;
 #ifndef EXTENDED
@@ -106,9 +106,9 @@ int main()
 			shader->set_double("offset", offset);
 #endif // EXTENDED
 		});
-	hgui::RenderManager::draw();
+	hgui::Renderer::draw();
 	hgui::Widget::active();
-	hgui::RenderManager::set_background_color(HGUI_COLOR_WHITE);
-	hgui::RenderManager::loop();
+	hgui::Renderer::set_background_color(HGUI_COLOR_WHITE);
+	hgui::Renderer::loop();
 	return 0;
 }
