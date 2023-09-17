@@ -9,7 +9,7 @@ int main()
 	shader->set_vec2("canvaSize", monitor->get_size());
 	auto canva = hgui::CanvaManager::create(shader, monitor->get_size(), hgui::point(0));
 #ifndef EXTENDED
-	glm::vec2 center = glm::vec2(0);
+	glm::vec2 center = glm::vec2(-0.75f, 0.0f);
 	shader->set_vec2("center", center);
 	float offset = 2.0f;
 	shader->set_float("offset", offset);
@@ -35,14 +35,15 @@ int main()
 					decltype(center) delta = decltype(center)(newMousePosition - *lastMousePosition) / decltype(center)(monitor->get_size().width, monitor->get_size().height);
 					decltype(center) newCenter = center - delta * offset;
 					lastMousePosition = std::make_shared<glm::vec2>(newMousePosition);
-					if (newCenter.x > 2.0 || newCenter.x < -2.0)
+					if (newCenter.x > 1.0 || newCenter.x < -1.0)
 					{
 						newCenter.x = center.x;
 					}
-					if (newCenter.y > 2.0 || newCenter.y < -2.0)
+					if (newCenter.y > 1.0 || newCenter.y < -1.0)
 					{
 						newCenter.y = center.y;
 					}
+					std::cout << hgui::point(center) << std::endl;
 					center = newCenter;
 #ifndef EXTENDED
 					shader->set_vec2("center", center);

@@ -15,5 +15,6 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 )
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/deps/HorizonGUI/include)
+target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/deps/HorizonGUI/bin)
 target_link_libraries(${PROJECT_NAME} PRIVATE horizongui glfw freetyped)
-target_include_directories(${PROJECT_NAME} PRIVATE deps/HorizonGUI/include)
