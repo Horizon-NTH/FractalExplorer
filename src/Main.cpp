@@ -43,7 +43,6 @@ int main()
 					{
 						newCenter.y = center.y;
 					}
-					std::cout << hgui::point(center) << std::endl;
 					center = newCenter;
 #ifndef EXTENDED
 					shader->set_vec2("center", center);

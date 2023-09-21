@@ -9,12 +9,19 @@ file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
 
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/Debug/FractalExplorer.exe ${CMAKE_CURRENT_SOURCE_DIR}/
-    COMMENT "Moving executable to ${CMAKE_CURRENT_SOURCE_DIR}"
-)
+if(UNIX)
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/
+		COMMENT "Moving executable to ${CMAKE_CURRENT_SOURCE_DIR}"
+	)
+else()
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/Debug/${PROJECT_NAME}.exe ${CMAKE_CURRENT_SOURCE_DIR}/
+		COMMENT "Moving executable to ${CMAKE_CURRENT_SOURCE_DIR}"
+	)
+endif()
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/deps/HorizonGUI/include)
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/deps/HorizonGUI/bin)
-target_link_libraries(${PROJECT_NAME} PRIVATE horizongui glfw freetyped)
+target_link_libraries(${PROJECT_NAME} PRIVATE horizongui glfw freetype)

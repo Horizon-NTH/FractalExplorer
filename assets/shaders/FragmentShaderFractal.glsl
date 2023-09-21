@@ -137,7 +137,7 @@ float get_continous_iteration(int iteration, vec2 complex)
 	}
 	else
 	{
-		return iteration;
+		return float(iteration);
 	}
 }
 
