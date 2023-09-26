@@ -1,7 +1,8 @@
-#include <hgui/HorizonGUI.h>
+#include "../include/Include.h"
 
 int main()
 {
+	/*
 	hgui::init();
 	auto& monitor = hgui::MonitorManager::get_primary_monitor();
 	auto window = hgui::WindowManager::create("FractalExplorer", monitor->get_size(), glm::vec2(0), nullptr, nullptr, { hgui::WindowOption(hgui::options::MAXIMAIZED, true) });
@@ -110,5 +111,8 @@ int main()
 	hgui::Widget::active();
 	hgui::Renderer::set_background_color(HGUI_COLOR_WHITE);
 	hgui::Renderer::loop();
+	*/
+	FractalExplorer app;
+	app.start();
 	return 0;
 }
