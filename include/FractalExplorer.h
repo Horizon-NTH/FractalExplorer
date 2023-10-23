@@ -2,6 +2,7 @@
 
 #include "Include.h"
 #include "Mandelbrot.h"
+#include "MandelbrotExtended.h"
 
 class FractalExplorer
 {

@@ -32,7 +32,7 @@ FractalExplorer::FractalExplorer() :
 		{
 			if (auto fractal = std::dynamic_pointer_cast<Mandelbrot>(m_fractal))
 			{
-				m_fractal = std::make_shared<MandelbrotExtended>(fractal);
+				m_fractal = std::static_pointer_cast<Fractal>(std::make_shared<MandelbrotExtended>(fractal));
 			}
 		}, hgui::size(BUTTON_SIZE), hgui::point(5_em, 5_em + BUTTON_SIZE),
 		hgui::TextureManager::create(hgui::image_loader("assets/textures/zoom.png"))));
@@ -93,7 +93,7 @@ void FractalExplorer::render(FractalsType fractal)
 	switch (fractal)
 	{
 	case FractalsType::MANDELBROT:
-		m_fractal = std::make_shared<Mandelbrot>();
+		m_fractal = std::static_pointer_cast<Fractal>(std::make_shared<Mandelbrot>());
 		break;
 	case FractalsType::JULIA:
 		break;

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-option(BUILD_EXTERNAL_LIB "Choose to build or no external api" OFF)
+option(BUILD_EXTERNAL_LIB "Choose to build or no external api" ON)
 
 project(FractalExplorer VERSION 1.0.0)
 

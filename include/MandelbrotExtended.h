@@ -2,7 +2,8 @@
 
 #include "Include.h"
 #include "Fractal.h"
-#include "Mandelbrot.h"
+
+class Mandelbrot;
 
 class MandelbrotExtended : public Fractal
 {

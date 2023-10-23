@@ -1,4 +1,5 @@
 #include "../include/MandelbrotExtended.h"
+#include "../include/Mandelbrot.h"
 
 MandelbrotExtended::MandelbrotExtended() :
 	Fractal(FractalsType::MANDELBROT, nullptr), m_canva(nullptr),
