@@ -4,19 +4,19 @@
 #include "Fractal.h"
 
 class Mandelbrot;
+class FractalExplorer;
 
-class MandelbrotExtended : public Fractal
+class MandelbrotExtended final : public Fractal
 {
 	friend class Mandelbrot;
+	friend class FractalExplorer;
 
 public:
 	MandelbrotExtended();
-	MandelbrotExtended(const std::shared_ptr<Mandelbrot>& fractal);
-	~MandelbrotExtended() override;
+	MandelbrotExtended(const hgui::dvec2& center);
+	explicit MandelbrotExtended(const std::shared_ptr<Mandelbrot>& fractal);
 
 private:
-	std::shared_ptr<hgui::kernel::Canva> m_canva;
-
 	hgui::dvec2 m_center;
 	double m_offset;
 	std::shared_ptr<hgui::dvec2> m_mousePosition;

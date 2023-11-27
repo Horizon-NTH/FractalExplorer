@@ -5,18 +5,15 @@
 
 class MandelbrotExtended;
 
-class Mandelbrot : public Fractal
+class Mandelbrot final : public Fractal
 {
 	friend class MandelbrotExtended;
 
 public:
 	Mandelbrot();
-	Mandelbrot(const std::shared_ptr<MandelbrotExtended>& fractal);
-	~Mandelbrot() override;
+	explicit Mandelbrot(const std::shared_ptr<MandelbrotExtended>& fractal);
 
 private:
-	std::shared_ptr<hgui::kernel::Canva> m_canva;
-
 	hgui::vec2 m_center;
 	float m_offset;
 	std::shared_ptr<hgui::vec2> m_mousePosition;

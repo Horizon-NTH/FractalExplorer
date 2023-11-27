@@ -6,7 +6,7 @@ precision highp float;
 
 out vec4 fragmentColor;
 
-uniform vec2 canvaSize;
+uniform vec2 canvasSize;
 
 uniform dvec2 center;
 uniform double offset;
@@ -22,7 +22,6 @@ vec3 get_color_LCH(float iteration);
 vec3 get_color_wave(float iteration);
 float get_continous_iteration(int iteration, vec2 complex);
 vec3 mandelbrot();
-
 
 void main()
 {
@@ -147,11 +146,11 @@ float get_continous_iteration(int iteration, vec2 complex)
 vec3 mandelbrot()
 {
 	int iteration = 0;
-	float aspectRatio = canvaSize.y / canvaSize.x;
+	float aspectRatio = canvasSize.y / canvasSize.x;
 	
 	dvec2 complex = dvec2(
-		mix(center.x - offset, center.x + offset, gl_FragCoord.x / canvaSize.x),
-		mix(center.y - offset * aspectRatio, center.y + offset * aspectRatio, gl_FragCoord.y / canvaSize.y)
+		mix(center.x - offset, center.x + offset, gl_FragCoord.x / canvasSize.x),
+		mix(center.y - offset * aspectRatio, center.y + offset * aspectRatio, gl_FragCoord.y / canvasSize.y)
 	);
 
 	dvec2 iterationComplex = dvec2(0.0, 0.0);

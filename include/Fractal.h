@@ -13,12 +13,13 @@ class Fractal
 {
 public:
 	Fractal(FractalsType type, const std::shared_ptr<hgui::kernel::Shader>& shader);
-	virtual ~Fractal();
+	virtual ~Fractal() = default;
 
-	const std::shared_ptr<hgui::kernel::Shader>& get_shader() const;
-	const FractalsType& get_type() const;
+	[[nodiscard]] const std::shared_ptr<hgui::kernel::Shader>& get_shader() const;
+	[[nodiscard]] const FractalsType& get_type() const;
 
 protected:
 	FractalsType m_type;
 	std::shared_ptr<hgui::kernel::Shader> m_shader;
+	std::shared_ptr<hgui::kernel::Canvas> m_canvas;
 };

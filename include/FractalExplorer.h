@@ -10,8 +10,6 @@ public:
 	FractalExplorer();
 
 	void start();
-	void render(FractalsType fractal);
-	void option_menu(FractalsType fractal);
 
 private:
 	std::shared_ptr<hgui::kernel::Window> m_window;
@@ -24,4 +22,8 @@ private:
 	std::vector<std::shared_ptr<hgui::kernel::Button>> m_buttons;
 
 	void set_main_menu();
+	void set_option_menu();
+	void render(FractalsType fractal);
+	void option_menu();
+	void draw_background();
 };

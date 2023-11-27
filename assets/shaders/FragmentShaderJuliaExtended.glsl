@@ -6,7 +6,7 @@ precision highp float;
 
 out vec4 fragmentColor;
 
-uniform vec2 canvaSize;
+uniform vec2 canvasSize;
 
 uniform dvec2 center;
 uniform double offset;
@@ -147,11 +147,11 @@ float get_continous_iteration(int iteration, vec2 complex)
 vec3 get_iteration_mandelbrot()
 {
 	int iteration = 0;
-	float aspectRatio = canvaSize.y / canvaSize.x;
+	float aspectRatio = canvasSize.y / canvasSize.x;
 	
 	dvec2 complex = dvec2(
-		mix(center.x - offset, center.x + offset, gl_FragCoord.x / canvaSize.x),
-		mix(center.y - offset * aspectRatio, center.y + offset * aspectRatio, gl_FragCoord.y / canvaSize.y)
+		mix(center.x - offset, center.x + offset, gl_FragCoord.x / canvasSize.x),
+		mix(center.y - offset * aspectRatio, center.y + offset * aspectRatio, gl_FragCoord.y / canvasSize.y)
 	);
 
 	dvec2 magnitude = dvec2(0.0);
@@ -175,11 +175,11 @@ vec3 get_iteration_mandelbrot()
 vec3 get_iteration_julia()
 {
 	int iteration = 0;
-	float aspectRatio = canvaSize.y / canvaSize.x;
+	float aspectRatio = canvasSize.y / canvasSize.x;
 	
 	vec2 iterationComplex = vec2(
-		mix(center.x - offset, center.x + offset, gl_FragCoord.x / canvaSize.x),
-		mix(center.y - offset * aspectRatio, center.y + offset * aspectRatio, gl_FragCoord.y / canvaSize.y)
+		mix(center.x - offset, center.x + offset, gl_FragCoord.x / canvasSize.x),
+		mix(center.y - offset * aspectRatio, center.y + offset * aspectRatio, gl_FragCoord.y / canvasSize.y)
 	);
 
 	vec2 complex = vec2(0.355, 0.355);
