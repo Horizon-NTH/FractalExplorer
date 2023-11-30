@@ -8,6 +8,10 @@
 
 **FractalExplorer** is an application that let you explore the beautiful [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set).
 
+![Mandelbrot set](https://github.com/Horizon-NTH/FractalExplorer/blob/master/assets/screenshots/mandelbrot0.png)
+
+> **Note**: If you want to see more image like this you can check the [gallery](https://github.com/Horizon-NTH/FractalExplorer/wiki/Gallery).
+
 ## Installation Instructions
 
 > You can also simply install a pre-built version [here](https://github.com/Horizon-NTH/FractalExplorer/releases).
