@@ -1,8 +1,12 @@
-# ShapeDrawer
+# FractalExplorer
+
+[![Release](https://img.shields.io/badge/Release-v1.0-blueviolet)](https://github.com/Horizon-NTH/FractalExplorer/releases)
+[![Language](https://img.shields.io/badge/Language-C%2B%2B-0052cf)](https://en.wikipedia.org/wiki/C++)
+[![Licence](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Introduction
 
-**FractalExplorer** is an application that let you explore the beautiful Mandelbrot set.
+**FractalExplorer** is an application that let you explore the beautiful [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set).
 
 ## Installation Instructions
 
@@ -63,3 +67,7 @@ To learn how to use this application, please refer to the [wiki](https://github.
 * **HorizonGUI**
 
     The code relies on [HorizonGUI](https://github.com/Horizon-NTH/HorizonGUI) for all the graphics-related functionality of the application.
+    
+## License
+
+FractalExplorer is licensed under the [MIT license](https://github.com/Horizon-NTH/FractalExplorer/blob/master/LICENSE).
