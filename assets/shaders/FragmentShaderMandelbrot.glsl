@@ -1,6 +1,7 @@
 #version 330 core
 
 #define MAX_ITERATION 1000
+#define SMOOTH 10000
 
 out vec4 fragmentColor;
 
@@ -153,7 +154,7 @@ vec3 mandelbrot()
 
 	vec2 iterationComplex = vec2(0.0, 0.0);
 
-	while (pow(iterationComplex.x, 2) + pow(iterationComplex.y, 2) < 10000 && iteration < MAX_ITERATION)
+	while (pow(iterationComplex.x, 2) + pow(iterationComplex.y, 2) < SMOOTH && iteration < MAX_ITERATION)
 	{	
 		iterationComplex = vec2(pow(iterationComplex.x, 2) - pow(iterationComplex.y, 2), 2 * iterationComplex.x * iterationComplex.y) + complex;
 		iteration++;

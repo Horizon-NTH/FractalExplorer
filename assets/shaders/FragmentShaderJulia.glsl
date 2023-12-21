@@ -1,6 +1,7 @@
 #version 330 core
 
 #define MAX_ITERATION 1000
+#define SMOOTH 10000
 
 out vec4 fragmentColor;
 
@@ -8,6 +9,8 @@ uniform vec2 canvasSize;
 
 uniform vec2 center;
 uniform float offset;
+uniform int color;
+uniform vec2 complex;
 
 layout(origin_upper_left, pixel_center_integer) in vec4 gl_FragCoord;
 const float PI = 3.1415926535897932384626433832795;
@@ -18,12 +21,11 @@ vec3 get_color_HSL(float iteration);
 vec3 get_color_LCH(float iteration);
 vec3 get_color_wave(float iteration);
 float get_continous_iteration(int iteration, vec2 complex);
-vec3 get_iteration_mandelbrot();
-vec3 get_iteration_julia();
+vec3 julia();
 
 void main()
 {
-	fragmentColor = vec4(get_iteration_mandelbrot(), 1.0);
+	fragmentColor = vec4(julia(), 1.0);
 }
 
 vec3 get_color_palette(float iteration)
@@ -141,33 +143,7 @@ float get_continous_iteration(int iteration, vec2 complex)
 	}
 }
 
-vec3 get_iteration_mandelbrot()
-{
-	int iteration = 0;
-	float aspectRatio = canvasSize.y / canvasSize.x;
-	
-	vec2 complex = vec2(
-		mix(center.x - offset, center.x + offset, gl_FragCoord.x / canvasSize.x),
-		mix(center.y - offset * aspectRatio, center.y + offset * aspectRatio, gl_FragCoord.y / canvasSize.y)
-	);
-
-	vec2 iterationComplex = vec2(0.0, 0.0);
-
-	while (pow(iterationComplex.x, 2) + pow(iterationComplex.y, 2) < 10000 && iteration < MAX_ITERATION)
-	{	
-		iterationComplex = vec2(pow(iterationComplex.x, 2) - pow(iterationComplex.y, 2), 2 * iterationComplex.x * iterationComplex.y) + complex;
-		iteration++;
-	}
-	
-	if (iteration != MAX_ITERATION)
-	{
-        return vec3(get_color_wave(get_continous_iteration(iteration, iterationComplex)));
-	}
-	else
-		return vec3(0.0, 0.0, 0.0);
-};
-
-vec3 get_iteration_julia()
+vec3 julia()
 {
 	int iteration = 0;
 	float aspectRatio = canvasSize.y / canvasSize.x;
@@ -177,17 +153,32 @@ vec3 get_iteration_julia()
 		mix(center.y - offset * aspectRatio, center.y + offset * aspectRatio, gl_FragCoord.y / canvasSize.y)
 	);
 
-	vec2 complex = vec2(0.355, 0.355);
-
-	while (pow(iterationComplex.x, 2) + pow(iterationComplex.y, 2) < 10000 && iteration < MAX_ITERATION)
-	{	
+	while (pow(iterationComplex.x, 2) + pow(iterationComplex.y, 2) < SMOOTH && iteration < MAX_ITERATION)
+	{
 		iterationComplex = vec2(pow(iterationComplex.x, 2) - pow(iterationComplex.y, 2), 2 * iterationComplex.x * iterationComplex.y) + complex;
 		iteration++;
 	}
 	
 	if (iteration != MAX_ITERATION)
 	{
-        return vec3(get_color_palette(get_continous_iteration(iteration, iterationComplex)));
+		switch (color)
+		{
+			case 0:
+				return vec3(get_color_wave(get_continous_iteration(iteration, iterationComplex)));
+				break;
+			case 1:
+				return vec3(get_color_HSV(get_continous_iteration(iteration, iterationComplex)));
+				break;
+			case 2:
+				return vec3(get_color_HSL(get_continous_iteration(iteration, iterationComplex)));
+				break;
+			case 3:
+				return vec3(get_color_LCH(get_continous_iteration(iteration, iterationComplex)));
+				break;
+			default:
+				return vec3(get_color_wave(get_continous_iteration(iteration, iterationComplex)));
+				break;
+		}
 	}
 	else
 		return vec3(0.0, 0.0, 0.0);

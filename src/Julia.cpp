@@ -1,17 +1,17 @@
-#include "../include/Mandelbrot.h"
-#include "../include/MandelbrotExtended.h"
+#include "../include/Julia.h"
+#include "../include/JuliaExtended.h"
 
-Mandelbrot::Mandelbrot() :
-	Fractal(FractalsType::MANDELBROT, nullptr),
-	m_center({ -0.75f, 0.0f }),
+Julia::Julia() :
+	Fractal(FractalsType::JULIA, nullptr),
+	m_center(0.f),
 	m_offset(2.0f),
 	m_mousePosition(nullptr)
 {
 	init();
 }
 
-Mandelbrot::Mandelbrot(const hgui::vec2& center) :
-	Fractal(FractalsType::MANDELBROT, nullptr),
+Julia::Julia(const hgui::vec2& center) :
+	Fractal(FractalsType::JULIA, nullptr),
 	m_center(hgui::vec2(std::clamp(center.x, -2.f, 2.f), std::clamp(center.y, -2.f, 2.f))),
 	m_offset(2.0f),
 	m_mousePosition(nullptr)
@@ -19,34 +19,32 @@ Mandelbrot::Mandelbrot(const hgui::vec2& center) :
 	init();
 }
 
-Mandelbrot::Mandelbrot(const std::shared_ptr<MandelbrotExtended>& fractal) :
-	Fractal(FractalsType::MANDELBROT, nullptr),
+Julia::Julia(const std::shared_ptr<JuliaExtended>& fractal) :
+	Fractal(FractalsType::JULIA, nullptr),
 	m_center(fractal->m_center),
 	m_offset(std::clamp(static_cast<float>(fractal->m_offset), 1e-4f, 2.f)),
 	m_mousePosition(nullptr)
 {
 	init();
+	set_complex(fractal->m_complex);
 }
 
-const hgui::vec2& Mandelbrot::get_center() const
+void Julia::set_complex(hgui::vec2 complex)
 {
-	return m_center;
+	m_complex = hgui::vec2(std::clamp(complex.x, -2.f, 2.f), std::clamp(complex.y, -2.f, 2.f));
+	m_shader->use().set_vec2("complex", m_complex);
 }
 
-float Mandelbrot::get_offset() const
-{
-	return m_offset;
-}
-
-void Mandelbrot::init()
+void Julia::init()
 {
 	m_shader = hgui::ShaderManager::create(
 		hgui::file_reader("assets/shaders/VertexShaderFractal.glsl"),
-		hgui::file_reader("assets/shaders/FragmentShaderMandelbrot.glsl")
+		hgui::file_reader("assets/shaders/FragmentShaderJulia.glsl")
 	);
 	m_canvas = hgui::CanvasManager::create(m_shader, hgui::size(100_em), hgui::point(0));
 	m_shader->use().set_vec2("center", m_center).set_float("offset", m_offset)
-		.set_vec2("canvasSize", hgui::size(100_em));
+		.set_vec2("canvasSize", hgui::size(100_em))
+		.set_vec2("complex", m_complex);
 	m_canvas->bind(hgui::MouseCombinationAction(hgui::inputs::OVER, hgui::buttons::LEFT, hgui::actions::PRESS), [&]()
 		{
 			if (!m_canvas->is_bind(hgui::MouseAction(hgui::buttons::LEFT, hgui::actions::REPEAT)))
@@ -68,7 +66,6 @@ void Mandelbrot::init()
 					});
 			}
 		});
-
 	m_canvas->bind(hgui::MouseAction(hgui::buttons::LEFT, hgui::actions::RELEASE), [&]()
 		{
 			m_mousePosition = nullptr;

@@ -1,8 +1,9 @@
 #include "../include/Fractal.h"
 
-Fractal::Fractal(const FractalsType type, const std::shared_ptr<hgui::kernel::Shader>& shader) : m_type(type),
-                                                                                                 m_shader(shader),
-                                                                                                 m_canvas(nullptr)
+Fractal::Fractal(const FractalsType type, const std::shared_ptr<hgui::kernel::Shader>& shader) :
+	m_type(type),
+	m_shader(shader),
+	m_canvas(nullptr)
 {
 }
 

@@ -1,6 +1,6 @@
 # FractalExplorer
 
-[![Release](https://img.shields.io/badge/Release-v1.0-blueviolet)](https://github.com/Horizon-NTH/FractalExplorer/releases)
+[![Release](https://img.shields.io/badge/Release-v2.0-blueviolet)](https://github.com/Horizon-NTH/FractalExplorer/releases)
 [![Language](https://img.shields.io/badge/Language-C%2B%2B-0052cf)](https://en.wikipedia.org/wiki/C++)
 [![Licence](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -36,7 +36,7 @@ You will now able to choose between [script](#script-installation) or [manual](#
 
 - ### Manual Installation
 
-  #### Create Build Environment
+#### Create Build Environment
 
   Ensure you have [CMake](https://cmake.org/) installed. Generate the build environment using CMake. 
 
@@ -46,9 +46,9 @@ You will now able to choose between [script](#script-installation) or [manual](#
   cmake ..
   ```
 
-  #### Build
+#### Build
 
-  - ##### CMake
+- ##### CMake
 
     Build directly using CMake:
 
@@ -58,7 +58,7 @@ You will now able to choose between [script](#script-installation) or [manual](#
 
     This command will create all the executable in the main folder.
 
-  - ##### Microsoft Visual Studio
+- ##### Microsoft Visual Studio
 
     Alternatively, you can use [Microsoft Visual Studio](https://visualstudio.microsoft.com/) to launch the project and build it. Open the `fractalexplorer.sln` file with Microsoft Visual Studio.
 
@@ -68,10 +68,10 @@ To learn how to use this application, please refer to the [wiki](https://github.
 
 ## Dependencies
 
-* **HorizonGUI**
+- **HorizonGUI**
 
     The code relies on [HorizonGUI](https://github.com/Horizon-NTH/HorizonGUI) for all the graphics-related functionality of the application.
-    
+
 ## License
 
 FractalExplorer is licensed under the [MIT license](https://github.com/Horizon-NTH/FractalExplorer/blob/master/LICENSE).

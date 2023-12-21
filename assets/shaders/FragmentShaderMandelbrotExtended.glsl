@@ -2,7 +2,7 @@
 precision highp float;
 
 #define MAX_ITERATION 500
-#define SMOOTH 100
+#define SMOOTH 10000
 
 out vec4 fragmentColor;
 
@@ -155,7 +155,7 @@ vec3 mandelbrot()
 
 	dvec2 iterationComplex = dvec2(0.0, 0.0);
 
-	while (iterationComplex.x * iterationComplex.x + iterationComplex.y * iterationComplex.y < 10000 && iteration < MAX_ITERATION)
+	while (iterationComplex.x * iterationComplex.x + iterationComplex.y * iterationComplex.y < SMOOTH && iteration < MAX_ITERATION)
 	{	
 		iterationComplex = dvec2(iterationComplex.x * iterationComplex.x - iterationComplex.y * iterationComplex.y, 2 * iterationComplex.x * iterationComplex.y) + complex;
 		iteration++;
