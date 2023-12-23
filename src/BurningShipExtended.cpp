@@ -64,7 +64,6 @@ void BurningShipExtended::init()
 						const hgui::dvec2 newCenter = m_center - delta * m_offset;
 						m_mousePosition = std::make_shared<hgui::dvec2>(newMousePosition);
 						m_center = hgui::dvec2(std::clamp(newCenter.x, -2., 2.), std::clamp(newCenter.y, -2., 2.));
-						std::cout << std::setprecision(20) << m_center << std::endl << m_offset << std::endl << std::endl;
 						m_shader->set_dvec2("center", m_center);
 					});
 			}
