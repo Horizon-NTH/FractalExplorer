@@ -161,7 +161,7 @@ void FractalExplorer::set_main_menu()
 		}, hgui::size(20_em, 10_em), hgui::point(0), nullptr, HGUI_COLOR_BLUE, 1000, "Burning Ship", m_font, HGUI_COLOR_WHITE));
 	m_buttons.back()->set_position(hgui::point(50_em) - m_buttons.back()->get_size() / 2 + hgui::point(0, 40_em));
 
-	m_texts.push_back(hgui::LabelManager::create("V 2.0", hgui::point(0), m_font,
+	m_texts.push_back(hgui::LabelManager::create("V 3.0", hgui::point(0), m_font,
 		{ 25u, HGUI_COLOR_WHITE, 1.0f }));
 	m_texts.back()->set_position(hgui::point(99_em - m_texts.back()->get_size().width, 1_em));
 	m_texts.push_back(hgui::LabelManager::create("FractalExplorer", hgui::point(0), m_titleFont,
