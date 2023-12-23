@@ -113,7 +113,7 @@ void FractalExplorer::draw_background()
 			m_fractal = std::make_shared<Julia>();
 		}
 	}
-	hgui::TaskManager::program(std::chrono::milliseconds(50), [this] { draw_background(); });
+	hgui::TaskManager::program(std::chrono::milliseconds(50), [&] { draw_background(); });
 }
 
 void FractalExplorer::set_main_menu()
@@ -179,6 +179,7 @@ void FractalExplorer::set_option_menu()
 				hgui::KeyBoardManager::unbind(hgui::KeyBoardAction(hgui::keys::KP_SUBTRACT, hgui::actions::REPEAT));
 			}
 			m_fractal = nullptr;
+			hgui::Renderer::set_draw_callback(nullptr);
 			start();
 		}, hgui::size(BUTTON_SIZE), get_position(1, 2),
 			hgui::TextureManager::create(hgui::image_loader("assets/textures/home.png"))));
@@ -265,24 +266,27 @@ void FractalExplorer::set_special_option_menu(const FractalsType fractal)
 	{
 		auto function = [&]()
 			{
-				hgui::dvec2 center;
-				double offset{2.};
-				if (auto mandelbrot = std::dynamic_pointer_cast<Mandelbrot>(m_fractal))
+				if (m_optionTexts.size() >= 2)
 				{
-					center = mandelbrot->get_center();
-					offset = mandelbrot->get_offset();
+					hgui::dvec2 center;
+					double offset = 2.;
+					if (const auto mandelbrot = std::dynamic_pointer_cast<Mandelbrot>(m_fractal))
+					{
+						center = mandelbrot->get_center();
+						offset = mandelbrot->get_offset();
+					}
+					else if (const auto mandelbrot = std::dynamic_pointer_cast<MandelbrotExtended>(m_fractal))
+					{
+						center = mandelbrot->get_center();
+						offset = mandelbrot->get_offset();
+					}
+					std::stringstream ss;
+					ss << "Center : " << center;
+					m_optionTexts.at(0)->set_text(ss.str());
+					ss.str("");
+					ss << "Offset : " << offset;
+					m_optionTexts.at(1)->set_text(ss.str());
 				}
-				else if (auto mandelbrot = std::dynamic_pointer_cast<MandelbrotExtended>(m_fractal))
-				{
-					center = mandelbrot->get_center();
-					offset = mandelbrot->get_offset();
-				}
-				std::stringstream ss;
-				ss << "Center : (" << center.x << ", " << center.y << ")";
-				m_optionTexts.at(0)->set_text(ss.str());
-				ss.str("");
-				ss << "Offset : " << offset;
-				m_optionTexts.at(1)->set_text(ss.str());
 			};
 		m_optionTexts.push_back(hgui::LabelManager::create("Center : (-0.75, 0.00)", get_position(4, 1), m_font));
 		m_optionTexts.back()->set_height(40u);
@@ -300,27 +304,32 @@ void FractalExplorer::set_special_option_menu(const FractalsType fractal)
 		};
 		auto function = [&]()
 			{
-				if (auto julia = std::dynamic_pointer_cast<Julia>(m_fractal); julia && m_sliders.size() >= 2)
+				if (m_optionTexts.size() >= 2)
 				{
-					julia->set_complex(hgui::vec2(m_sliders.at(0)->get_value(), m_sliders.at(1)->get_value()));
+					if (auto julia = std::dynamic_pointer_cast<Julia>(m_fractal); julia && m_sliders.size() >= 2)
+					{
+						julia->set_complex(hgui::vec2(m_sliders.at(0)->get_value(), m_sliders.at(1)->get_value()));
+					}
+					else if (auto julia = std::dynamic_pointer_cast<JuliaExtended>(m_fractal); julia && m_sliders.size() >= 2)
+					{
+						julia->set_complex(hgui::vec2(m_sliders.at(0)->get_value(), m_sliders.at(1)->get_value()));
+					}
+					std::stringstream ss;
+					ss << "Re(c) = " << m_sliders.at(0)->get_value();
+					m_optionTexts.at(0)->set_text(ss.str());
+					ss.str("");
+					ss << "Im(c) = " << m_sliders.at(1)->get_value();
+					m_optionTexts.at(1)->set_text(ss.str());
 				}
-				else if (auto julia = std::dynamic_pointer_cast<JuliaExtended>(m_fractal); julia && m_sliders.size() >= 2)
-				{
-					julia->set_complex(hgui::vec2(m_sliders.at(0)->get_value(), m_sliders.at(1)->get_value()));
-				}
-				std::stringstream ss;
-				ss << "Re(c) = " << m_sliders.at(0)->get_value();
-				m_optionTexts.at(0)->set_text(ss.str());
-				ss.str("");
-				ss << "Im(c) = " << m_sliders.at(1)->get_value();
-				m_optionTexts.at(1)->set_text(ss.str());
 			};
-		m_optionTexts.push_back(hgui::LabelManager::create("Re(c) = -2", get_position(4, 1) + hgui::point(0, 10), m_font));
+		m_optionTexts.push_back(hgui::LabelManager::create("Re(c) = 0", get_position(4, 1) + hgui::point(0, 10), m_font));
 		m_optionTexts.back()->set_height(40u);
 		m_sliders.push_back(hgui::SliderManager::create(range, hgui::size(20_em, BUTTON_HEIGHT / 2.f), get_position(4, 1) + hgui::point(m_texts.back()->get_size().width + 15 * GAP, 0), hgui::color(66) / 255.f, hgui::color(9, 127, 224) / 255.f, HGUI_COLOR_WHITE, function));
-		m_optionTexts.push_back(hgui::LabelManager::create("Im(c) = -2", get_position(5, 1) + hgui::point(0, 10), m_font));
+		m_sliders.back()->set_value(0.f);
+		m_optionTexts.push_back(hgui::LabelManager::create("Im(c) = 0", get_position(5, 1) + hgui::point(0, 10), m_font));
 		m_optionTexts.back()->set_height(40u);
 		m_sliders.push_back(hgui::SliderManager::create(range, hgui::size(20_em, BUTTON_HEIGHT / 2.f), get_position(5, 1) + hgui::point(m_texts.back()->get_size().width + 15 * GAP, 0), hgui::color(66) / 255.f, hgui::color(9, 127, 224) / 255.f, HGUI_COLOR_WHITE, function));
+		m_sliders.back()->set_value(0.f);
 	}
 	break;
 	case FractalsType::SAME:
