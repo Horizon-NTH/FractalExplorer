@@ -5,6 +5,8 @@
 #include "MandelbrotExtended.h"
 #include "Julia.h"
 #include "JuliaExtended.h"
+#include "BurningShip.h"
+#include "BurningShipExtended.h"
 
 class FractalExplorer
 {

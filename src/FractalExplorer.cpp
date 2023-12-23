@@ -51,6 +51,10 @@ void FractalExplorer::render(const FractalsType fractal)
 		m_fractal = std::static_pointer_cast<Fractal>(std::make_shared<Julia>());
 		set_special_option_menu(fractal);
 		break;
+	case FractalsType::BURNINGSHIP:
+		m_fractal = std::static_pointer_cast<Fractal>(std::make_shared<BurningShip>());
+		set_special_option_menu(fractal);
+		break;
 	case FractalsType::SAME:
 		break;
 	}
@@ -79,17 +83,28 @@ void FractalExplorer::option_menu()
 void FractalExplorer::draw_background()
 {
 	hgui::TagManager::set_current_tag("background");
-	static const std::vector<std::pair<hgui::dvec2, double>> centers = {
-		std::make_pair(hgui::dvec2(0.29803728643142374244, -0.017892934639849415734), 1e-9),
+	static const std::vector<std::pair<hgui::dvec2, double>> mandelbrotCenters = {
+		std::make_pair(hgui::dvec2(0.29803728643142374244, -0.017892934639849415734), 1e-09),
 		std::make_pair(hgui::dvec2(0.27236526368881613935, -0.0051226242725265431002), 1e-10),
 		std::make_pair(hgui::dvec2(-1.8100958106935862713, -1.2115589437016044164e-12), 1e-11),
 		std::make_pair(hgui::dvec2(-0.27977201929735756591, -0.83911902078682876205), 1e-9),
 		std::make_pair(hgui::dvec2(-0.77116049982246182015, 0.11535252316027029551), 1e-9),
 		std::make_pair(hgui::dvec2(-0.13498701313338801189, 1.000848937830046026), 1e-11)
 	};
+	static const std::vector<std::pair<hgui::dvec2, double>> burningShipCenters = {
+		std::make_pair(hgui::dvec2(-1.3863144447250430602, -0.35540827807523550641), 1e-13),
+		std::make_pair(hgui::dvec2(-1.7734196606593537471, -0.041480450372869973052), 1e-12),
+		std::make_pair(hgui::dvec2(0.26598765732655199612, -0.25063094727651130667), 1e-05),
+		std::make_pair(hgui::dvec2(0.86603598504612222531, -1.5713711680279656147), 1e-13)
+	};
 	static std::pair<hgui::dvec2, double> center;
 	static std::pair<hgui::vec2, double> complex;
 	if (const auto fractal = std::dynamic_pointer_cast<MandelbrotExtended>(m_fractal); fractal && fractal->m_offset >= center.second)
+	{
+		fractal->m_offset *= 0.95;
+		fractal->m_shader->use().set_double("offset", fractal->m_offset);
+	}
+	else if (const auto fractal = std::dynamic_pointer_cast<BurningShipExtended>(m_fractal); fractal && fractal->m_offset >= center.second)
 	{
 		fractal->m_offset *= 0.95;
 		fractal->m_shader->use().set_double("offset", fractal->m_offset);
@@ -102,10 +117,15 @@ void FractalExplorer::draw_background()
 	}
 	else
 	{
-		if (hgui::random(0.5))
+		if (hgui::random(1. / 3.))
 		{
-			center = centers.at(std::rand() % centers.size());
+			center = mandelbrotCenters.at(std::rand() % mandelbrotCenters.size());
 			m_fractal = std::make_shared<MandelbrotExtended>(center.first);
+		}
+		else if (hgui::random(1. / 3.))
+		{
+			center = burningShipCenters.at(std::rand() % burningShipCenters.size());
+			m_fractal = std::make_shared<BurningShipExtended>(center.first);
 		}
 		else
 		{
@@ -133,6 +153,13 @@ void FractalExplorer::set_main_menu()
 			render(FractalsType::JULIA);
 		}, hgui::size(20_em, 10_em), hgui::point(0), nullptr, HGUI_COLOR_BLUE, 1000, "Julia", m_font, HGUI_COLOR_WHITE));
 	m_buttons.back()->set_position(hgui::point(50_em) - m_buttons.back()->get_size() / 2 + hgui::point(0, 25_em));
+
+	m_buttons.push_back(hgui::ButtonManager::create([&]
+		{
+			hgui::TaskManager::deprogram();
+			render(FractalsType::BURNINGSHIP);
+		}, hgui::size(20_em, 10_em), hgui::point(0), nullptr, HGUI_COLOR_BLUE, 1000, "Burning Ship", m_font, HGUI_COLOR_WHITE));
+	m_buttons.back()->set_position(hgui::point(50_em) - m_buttons.back()->get_size() / 2 + hgui::point(0, 40_em));
 
 	m_texts.push_back(hgui::LabelManager::create("V 2.0", hgui::point(0), m_font,
 		{ 25u, HGUI_COLOR_WHITE, 1.0f }));
@@ -199,6 +226,10 @@ void FractalExplorer::set_option_menu()
 			{
 				m_fractal = std::make_shared<JuliaExtended>(fractal);
 			}
+			else if (auto fractal = std::dynamic_pointer_cast<BurningShip>(m_fractal))
+			{
+				m_fractal = std::make_shared<BurningShipExtended>(fractal);
+			}
 		}, hgui::size(BUTTON_SIZE), get_position(2, 1),
 			hgui::TextureManager::create(hgui::image_loader("assets/textures/zoom.png"))));
 	m_buttons.push_back(hgui::ButtonManager::create([&]()
@@ -211,6 +242,10 @@ void FractalExplorer::set_option_menu()
 			else if (auto fractal = std::dynamic_pointer_cast<JuliaExtended>(m_fractal))
 			{
 				m_fractal = std::make_shared<Julia>(fractal);
+			}
+			else if (auto fractal = std::dynamic_pointer_cast<BurningShipExtended>(m_fractal))
+			{
+				m_fractal = std::make_shared<BurningShip>(fractal);
 			}
 		}, hgui::size(BUTTON_SIZE), get_position(2, 2),
 			hgui::TextureManager::create(hgui::image_loader("assets/textures/perf.png"))));
@@ -262,6 +297,7 @@ void FractalExplorer::set_special_option_menu(const FractalsType fractal)
 	hgui::TagManager::set_current_tag("option");
 	switch (fractal)
 	{
+	case FractalsType::BURNINGSHIP:
 	case FractalsType::MANDELBROT:
 	{
 		auto function = [&]()
@@ -270,15 +306,25 @@ void FractalExplorer::set_special_option_menu(const FractalsType fractal)
 				{
 					hgui::dvec2 center;
 					double offset = 2.;
-					if (const auto mandelbrot = std::dynamic_pointer_cast<Mandelbrot>(m_fractal))
+					if (const auto fractal = std::dynamic_pointer_cast<Mandelbrot>(m_fractal))
 					{
-						center = mandelbrot->get_center();
-						offset = mandelbrot->get_offset();
+						center = fractal->get_center();
+						offset = fractal->get_offset();
 					}
-					else if (const auto mandelbrot = std::dynamic_pointer_cast<MandelbrotExtended>(m_fractal))
+					else if (const auto fractal = std::dynamic_pointer_cast<MandelbrotExtended>(m_fractal))
 					{
-						center = mandelbrot->get_center();
-						offset = mandelbrot->get_offset();
+						center = fractal->get_center();
+						offset = fractal->get_offset();
+					}
+					else if (auto fractal = std::dynamic_pointer_cast<BurningShip>(m_fractal))
+					{
+						center = fractal->get_center();
+						offset = fractal->get_offset();
+					}
+					else if (auto fractal = std::dynamic_pointer_cast<BurningShipExtended>(m_fractal))
+					{
+						center = fractal->get_center();
+						offset = fractal->get_offset();
 					}
 					std::stringstream ss;
 					ss << "Center : " << center;

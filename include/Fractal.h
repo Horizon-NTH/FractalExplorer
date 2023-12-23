@@ -6,6 +6,7 @@ enum class FractalsType
 {
 	MANDELBROT,
 	JULIA,
+	BURNINGSHIP,
 	SAME
 };
 
