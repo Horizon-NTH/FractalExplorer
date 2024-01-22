@@ -52,9 +52,9 @@ void MandelbrotExtended::init()
 					                              {
 						                              if (!m_mousePosition)
 						                              {
-							                              m_mousePosition = std::make_shared<hgui::dvec2>(hgui::MouseManager::get_position());
+							                              m_mousePosition = std::make_shared<hgui::dvec2>(static_cast<hgui::kernel::Vector<double, 2>>(hgui::MouseManager::get_position()));
 						                              }
-						                              hgui::dvec2 newMousePosition = hgui::MouseManager::get_position();
+						                              hgui::dvec2 newMousePosition = static_cast<hgui::kernel::Vector<double, 2>>(hgui::MouseManager::get_position());
 						                              const hgui::dvec2 delta = (newMousePosition - *m_mousePosition);
 						                              delta.x /= hgui::size(100_em).width;
 						                              delta.y /= hgui::size(100_em).height;

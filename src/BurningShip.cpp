@@ -55,9 +55,9 @@ void BurningShip::init()
 					{
 						if (!m_mousePosition)
 						{
-							m_mousePosition = std::make_shared<hgui::vec2>(hgui::MouseManager::get_position());
+							m_mousePosition = std::make_shared<hgui::vec2>(static_cast<hgui::kernel::Vector<float, 2>>(hgui::MouseManager::get_position()));
 						}
-						hgui::vec2 newMousePosition = hgui::MouseManager::get_position();
+						hgui::vec2 newMousePosition = static_cast<hgui::kernel::Vector<float, 2>>(hgui::MouseManager::get_position());
 						const hgui::vec2 delta = (newMousePosition - *m_mousePosition);
 						delta.x /= hgui::size(100_em).width;
 						delta.y /= hgui::size(100_em).height;

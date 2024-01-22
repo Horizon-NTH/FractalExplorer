@@ -21,11 +21,11 @@ vec3 get_color_HSL(float iteration);
 vec3 get_color_LCH(float iteration);
 vec3 get_color_wave(float iteration);
 float get_continous_iteration(int iteration, vec2 complex);
-vec3 mandelbrot();
+vec3 burningship();
 
 void main()
 {
-    fragmentColor = vec4(mandelbrot(), 1.0);
+    fragmentColor = vec4(burningship(), 1.0);
 }
 
 vec3 get_color_palette(float iteration)
@@ -143,7 +143,7 @@ float get_continous_iteration(int iteration, vec2 complex)
 	}
 }
 
-vec3 mandelbrot()
+vec3 burningship()
 {
 	int iteration = 0;
 	float aspectRatio = canvasSize.y / canvasSize.x;

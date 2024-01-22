@@ -38,7 +38,7 @@ You will now able to choose between [script](#script-installation) or [manual](#
 
 #### Create Build Environment
 
-  Ensure you have [CMake](https://cmake.org/) installed. Generate the build environment using CMake. 
+  Ensure you have [CMake](https://cmake.org/) installed. Generate the build environment using CMake.
 
   ```bash
   cd FractalExplorer
@@ -74,4 +74,4 @@ To learn how to use this application, please refer to the [wiki](https://github.
 
 ## License
 
-FractalExplorer is licensed under the [MIT license](https://github.com/Horizon-NTH/FractalExplorer/blob/master/LICENSE).
+[**FractalExplorer**](https://github.com/Horizon-NTH/FractalExplorer) is licensed under the [MIT license](https://github.com/Horizon-NTH/FractalExplorer/blob/master/LICENSE).

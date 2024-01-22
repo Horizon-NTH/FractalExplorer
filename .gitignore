@@ -2,3 +2,5 @@
 build 
 FractalExplorer.exe 
 .vscode  
+.idea 
+cmake-build-debug 
