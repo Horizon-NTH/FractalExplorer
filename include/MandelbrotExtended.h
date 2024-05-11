@@ -13,11 +13,12 @@ class MandelbrotExtended final : public Fractal
 
 public:
 	MandelbrotExtended();
-	MandelbrotExtended(const hgui::dvec2& center);
+	MandelbrotExtended(const MandelbrotExtended& mandelbrotExtended);
+	explicit MandelbrotExtended(const hgui::dvec2& center);
 	explicit MandelbrotExtended(const std::shared_ptr<Mandelbrot>& fractal);
 
-	const hgui::dvec2& get_center() const;
-	double get_offset() const;
+	[[nodiscard]] const hgui::dvec2& get_center() const;
+	[[nodiscard]] double get_offset() const;
 
 private:
 	hgui::dvec2 m_center;

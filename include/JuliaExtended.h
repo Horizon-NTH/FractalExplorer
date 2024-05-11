@@ -13,7 +13,8 @@ class JuliaExtended final : public Fractal
 
 public:
 	JuliaExtended();
-	JuliaExtended(const hgui::dvec2& center);
+	JuliaExtended(const JuliaExtended& juliaExtended);
+	explicit JuliaExtended(const hgui::dvec2& center);
 	explicit JuliaExtended(const std::shared_ptr<Julia>& fractal);
 
 	void set_complex(hgui::vec2 complex);

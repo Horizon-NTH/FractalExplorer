@@ -1,6 +1,6 @@
 # FractalExplorer
 
-[![Release](https://img.shields.io/badge/Release-v3.0-blueviolet)](https://github.com/Horizon-NTH/FractalExplorer/releases)
+[![Release](https://img.shields.io/badge/Release-v3.1-blueviolet)](https://github.com/Horizon-NTH/FractalExplorer/releases)
 [![Language](https://img.shields.io/badge/Language-C%2B%2B-0052cf)](https://en.wikipedia.org/wiki/C++)
 [![Licence](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 

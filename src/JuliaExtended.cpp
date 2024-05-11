@@ -10,6 +10,16 @@ JuliaExtended::JuliaExtended() :
 	init();
 }
 
+JuliaExtended::JuliaExtended(const JuliaExtended& juliaExtended) :
+	Fractal(FractalsType::JULIA, nullptr),
+	m_center(juliaExtended.m_center),
+	m_offset(std::clamp(juliaExtended.m_offset, 1.e-13, 2.0)),
+	m_mousePosition(nullptr)
+{
+	init();
+	set_complex(juliaExtended.m_complex);
+}
+
 JuliaExtended::JuliaExtended(const hgui::dvec2& center) :
 	Fractal(FractalsType::JULIA, nullptr),
 	m_center(hgui::vec2(std::clamp(center.x, -2., 2.), std::clamp(center.y, -2., 2.))),
@@ -43,8 +53,8 @@ void JuliaExtended::init()
 	);
 	m_canvas = hgui::CanvasManager::create(m_shader, hgui::size(100_em), hgui::point(0));
 	m_shader->use().set_dvec2("center", m_center).set_double("offset", m_offset)
-		.set_vec2("canvasSize", hgui::size(100_em))
-		.set_vec2("complex", m_complex);
+	        .set_vec2("canvasSize", hgui::size(100_em))
+	        .set_vec2("complex", m_complex);
 	m_canvas->bind(hgui::MouseCombinationAction(hgui::inputs::OVER, hgui::buttons::LEFT, hgui::actions::PRESS), [&]()
 		{
 			if (!m_canvas->is_bind(hgui::MouseAction(hgui::buttons::LEFT, hgui::actions::REPEAT)))

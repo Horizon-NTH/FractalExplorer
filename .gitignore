@@ -1,6 +1,8 @@
 .vs 
 build 
-FractalExplorer.exe 
+FractalExplorer.exe
+FractalExplorer
 .vscode  
 .idea 
 cmake-build-debug 
+cmake-build-release

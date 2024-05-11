@@ -11,11 +11,12 @@ class BurningShip final : public Fractal
 
 public:
 	BurningShip();
-	BurningShip(const hgui::vec2& center);
+	BurningShip(const BurningShip& burningShip);
+	explicit BurningShip(const hgui::vec2& center);
 	explicit BurningShip(const std::shared_ptr<BurningShipExtended>& fractal);
 
-	const hgui::vec2& get_center() const;
-	float get_offset() const;
+	[[nodiscard]] const hgui::vec2& get_center() const;
+	[[nodiscard]] float get_offset() const;
 
 private:
 	hgui::vec2 m_center;

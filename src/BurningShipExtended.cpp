@@ -3,8 +3,17 @@
 
 BurningShipExtended::BurningShipExtended() :
 	Fractal(FractalsType::MANDELBROT, nullptr),
-	m_center({ -0.2, -0.6 }),
+	m_center(-0.2, -0.6),
 	m_offset(2.0),
+	m_mousePosition(nullptr)
+{
+	init();
+}
+
+BurningShipExtended::BurningShipExtended(const BurningShipExtended& burningShipExtended) :
+	Fractal(FractalsType::BURNINGSHIP, nullptr),
+	m_center(burningShipExtended.m_center),
+	m_offset(std::clamp(burningShipExtended.m_offset, 1e-13, 2.)),
 	m_mousePosition(nullptr)
 {
 	init();
@@ -46,7 +55,7 @@ void BurningShipExtended::init()
 	);
 	m_canvas = hgui::CanvasManager::create(m_shader, hgui::size(100_em), hgui::point(0));
 	m_shader->use().set_dvec2("center", m_center).set_double("offset", m_offset)
-		.set_vec2("canvasSize", hgui::size(100_em));
+	        .set_vec2("canvasSize", hgui::size(100_em));
 	m_canvas->bind(hgui::MouseCombinationAction(hgui::inputs::OVER, hgui::buttons::LEFT, hgui::actions::PRESS), [&]()
 		{
 			if (!m_canvas->is_bind(hgui::MouseAction(hgui::buttons::LEFT, hgui::actions::REPEAT)))

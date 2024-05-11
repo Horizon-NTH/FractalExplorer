@@ -13,11 +13,12 @@ class BurningShipExtended final : public Fractal
 
 public:
 	BurningShipExtended();
-	BurningShipExtended(const hgui::dvec2& center);
+	BurningShipExtended(const BurningShipExtended& burningShipExtended);
+	explicit BurningShipExtended(const hgui::dvec2& center);
 	explicit BurningShipExtended(const std::shared_ptr<BurningShip>& fractal);
 
-	const hgui::dvec2& get_center() const;
-	double get_offset() const;
+	[[nodiscard]] const hgui::dvec2& get_center() const;
+	[[nodiscard]] double get_offset() const;
 
 private:
 	hgui::dvec2 m_center;

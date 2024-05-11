@@ -11,7 +11,8 @@ class Julia final : public Fractal
 
 public:
 	Julia();
-	Julia(const hgui::vec2& center);
+	Julia(const Julia& julia);
+	explicit Julia(const hgui::vec2& center);
 	explicit Julia(const std::shared_ptr<JuliaExtended>& fractal);
 
 	void set_complex(hgui::vec2 complex);

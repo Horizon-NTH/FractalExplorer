@@ -26,6 +26,8 @@ private:
 	std::vector<std::shared_ptr<hgui::kernel::Button>> m_buttons;
 	std::vector<std::shared_ptr<hgui::kernel::Slider>> m_sliders;
 	std::vector<std::shared_ptr<hgui::kernel::Label>> m_optionTexts;
+	std::function<void()> m_callback;
+	bool m_inMainMenu;
 
 	void set_main_menu();
 	void set_option_menu();
@@ -33,4 +35,6 @@ private:
 	void render(FractalsType fractal);
 	void option_menu();
 	void draw_background();
+
+	static hgui::point grid(int row, int columns);
 };
