@@ -166,21 +166,16 @@ vec3 mandelbrot()
 		{
 			case 0:
 				return vec3(get_color_wave(get_continous_iteration(iteration, iterationComplex)));
-				break;
 			case 1:
 				return vec3(get_color_HSV(get_continous_iteration(iteration, iterationComplex)));
-				break;
 			case 2:
 				return vec3(get_color_HSL(get_continous_iteration(iteration, iterationComplex)));
-				break;
 			case 3:
 				return vec3(get_color_LCH(get_continous_iteration(iteration, iterationComplex)));
-				break;
 			default:
 				return vec3(get_color_wave(get_continous_iteration(iteration, iterationComplex)));
-				break;
 		}
 	}
 	else
 		return vec3(0.0, 0.0, 0.0);
-};
+}

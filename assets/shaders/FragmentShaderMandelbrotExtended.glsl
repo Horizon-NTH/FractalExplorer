@@ -137,10 +137,7 @@ float get_continous_iteration(int iteration, vec2 complex)
 		float nu = log((log(pow(complex.x, 2) + pow(complex.y, 2)) / 2.) / log(2))/log(2);
 		return float(iteration + 1. - nu);
 	}
-	else
-	{
-		return iteration;
-	}
+	return float(iteration);
 }
 
 vec3 mandelbrot()
@@ -167,21 +164,15 @@ vec3 mandelbrot()
 		{
 			case 0:
 				return vec3(get_color_wave(get_continous_iteration(iteration, vec2(iterationComplex))));
-				break;
 			case 1:
 				return vec3(get_color_HSV(get_continous_iteration(iteration, vec2(iterationComplex))));
-				break;
 			case 2:
 				return vec3(get_color_HSL(get_continous_iteration(iteration, vec2(iterationComplex))));
-				break;
 			case 3:
 				return vec3(get_color_LCH(get_continous_iteration(iteration, vec2(iterationComplex))));
-				break;
 			default:
 				return vec3(get_color_wave(get_continous_iteration(iteration, vec2(iterationComplex))));
-				break;
 		}
 	}
-	else
-		return vec3(0.0, 0.0, 0.0);
-};
+	return vec3(0.0, 0.0, 0.0);
+}

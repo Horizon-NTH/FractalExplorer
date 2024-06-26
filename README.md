@@ -1,16 +1,18 @@
 # FractalExplorer
 
-[![Release](https://img.shields.io/badge/Release-v3.1-blueviolet)](https://github.com/Horizon-NTH/FractalExplorer/releases)
+[![Release](https://img.shields.io/badge/Release-v4.0-blueviolet)](https://github.com/Horizon-NTH/FractalExplorer/releases)
 [![Language](https://img.shields.io/badge/Language-C%2B%2B-0052cf)](https://en.wikipedia.org/wiki/C++)
 [![Licence](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Introduction
 
-**FractalExplorer** is an application that let you explore the beautiful [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set).
+**FractalExplorer** is an application that lets you explore
+beautiful fractals like the [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set).
 
 ![Mandelbrot set](https://github.com/Horizon-NTH/FractalExplorer/blob/master/assets/screenshots/mandelbrot0.png)
 
-> **Note**: If you want to see more image like this you can check the [gallery](https://github.com/Horizon-NTH/FractalExplorer/wiki/Gallery).
+> **Note**: If you want to see more image like this you can check
+> the [gallery](https://github.com/Horizon-NTH/FractalExplorer/wiki/Gallery).
 
 ## Installation Instructions
 
@@ -18,7 +20,8 @@
 
 ### Get Source Code
 
-You first need to clone the [repository](https://github.com/Horizon-NTH/FractalExplorer). Make sure to use [git](https://git-scm.com) and don't forget to include `--recurse-submodules` when cloning.
+You first need to clone the [repository](https://github.com/Horizon-NTH/FractalExplorer). Make sure to
+use [git](https://git-scm.com) and don't forget to include `--recurse-submodules` when cloning.
 
 ```bash
 git clone https://github.com/Horizon-NTH/FractalExplorer --recurse-submodules
@@ -28,7 +31,8 @@ You will now able to choose between [script](#script-installation) or [manual](#
 
 - ### Script Installation
 
-  Use the [`install.sh`](https://github.com/Horizon-NTH/FractalExplorer/blob/master/install.sh) script to compile the executable. You can choose to erase build files by adding `-e` / `--erase`.
+  Use the [`install.sh`](https://github.com/Horizon-NTH/FractalExplorer/blob/master/install.sh) script to compile the
+  executable. You can choose to erase build files by adding `-e` / `--erase`.
 
   ```bash
   ./install.sh --erase
@@ -38,7 +42,7 @@ You will now able to choose between [script](#script-installation) or [manual](#
 
 #### Create Build Environment
 
-  Ensure you have [CMake](https://cmake.org/) installed. Generate the build environment using CMake.
+Ensure you have [CMake](https://cmake.org/) installed. Generate the build environment using CMake.
 
   ```bash
   cd FractalExplorer
@@ -50,17 +54,18 @@ You will now able to choose between [script](#script-installation) or [manual](#
 
 - ##### CMake
 
-    Build directly using CMake:
+  Build directly using CMake:
 
     ```bash
     cmake --build .
     ```
 
-    This command will create all the executable in the main folder.
+  This command will create all the executable in the main folder.
 
 - ##### Microsoft Visual Studio
 
-    Alternatively, you can use [Microsoft Visual Studio](https://visualstudio.microsoft.com/) to launch the project and build it. Open the `fractalexplorer.sln` file with Microsoft Visual Studio.
+  Alternatively, you can use [Microsoft Visual Studio](https://visualstudio.microsoft.com/) to launch the project and
+  build it. Open the `fractalexplorer.sln` file with Microsoft Visual Studio.
 
 ## Usage
 
@@ -70,8 +75,10 @@ To learn how to use this application, please refer to the [wiki](https://github.
 
 - **HorizonGUI**
 
-    The code relies on [HorizonGUI](https://github.com/Horizon-NTH/HorizonGUI) for all the graphics-related functionality of the application.
+  The code relies on [HorizonGUI](https://github.com/Horizon-NTH/HorizonGUI) for all the graphics-related functionality
+  of the application.
 
 ## License
 
-[**FractalExplorer**](https://github.com/Horizon-NTH/FractalExplorer) is licensed under the [MIT license](https://github.com/Horizon-NTH/FractalExplorer/blob/master/LICENSE).
+[**FractalExplorer**](https://github.com/Horizon-NTH/FractalExplorer) is licensed under
+the [MIT license](https://github.com/Horizon-NTH/FractalExplorer/blob/master/LICENSE).

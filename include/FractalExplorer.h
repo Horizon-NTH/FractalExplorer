@@ -1,12 +1,7 @@
 #pragma once
 
 #include "Include.h"
-#include "Mandelbrot.h"
-#include "MandelbrotExtended.h"
-#include "Julia.h"
-#include "JuliaExtended.h"
-#include "BurningShip.h"
-#include "BurningShipExtended.h"
+#include "Fractal.h"
 
 class FractalExplorer
 {
